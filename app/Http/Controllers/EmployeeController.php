@@ -158,21 +158,8 @@ class EmployeeController extends Controller {
 	 */
 	public function show($id) {
 	
-		$employee = DB::table('users')
-			->join('designations', 'users.designation_id', '=', 'designations.id')
-			->select('users.*', 'designations.designation')
-			->where('users.id', $id)
-			->first();
-		$created_by = User::where('id', $employee->created_by)
-			->select('id', 'name')
-			->first();
-		$designations = Designation::where('deletion_status', 0)
-			->select('id', 'designation')
-			->get();
-		$departments = Department::where('deletion_status', 0)
-			->select('id', 'department')
-			->get();	
-		return view('pdd.employee.show', compact('employee', 'created_by', 'designations', 'departments'));
+		$data['employee'] = User::find($id);
+		return view('pdd.employee.show', $data);
 	}
 
 	/**

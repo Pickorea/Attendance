@@ -84,6 +84,7 @@
                             <td class="text-center"><img src="profile_picture/{{$employee['picture'] }}" width="70px" height="30px"/></td>   
                            
                             <td class="text-center">
+                            <a class="btn btn-info text-center" href="{{route('employee.show', $employee['id'])}}">Show</a>      
                                <a href="{{ route('employee.edit', $employee['id']) }}"><i class="icon fa fa-edit"></i> {{ __('Edit') }}</a>
                               
                             </td>
