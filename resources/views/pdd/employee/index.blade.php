@@ -5,9 +5,9 @@
 <div class="container">
 <div class="content-wrapper">
 @include('layouts.includes.nav')
-    <section class="p-5 mb-4 bg-light rounded-3 h-100 p-5 bg-light border rounded-3">
+    <section class="content-header">
         <h1>
-            {{ __('MANAGE EMPLOYEES') }}
+            {{ __('EMPLOYEE') }}
         </h1>
          <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -18,14 +18,14 @@
     </section>
 
     <!-- Main content -->
-    <section class="p-5 mb-4 bg-light rounded-3 h-100 p-5 bg-light border rounded-3">
+    <section class="content">
         <!-- Default box -->
         <div class="box">
             <div class="box-header with-border">
-               
+                <h3 class="box-title">{{ __('Manage Employee') }}</h3>
 
                 <div class="box-header with-border">
-                        <div >
+                        <div class="alert alert-info clearfix">
                             <a href="{{ route('employee.create') }}" class="alert-link"><button type="button" class="btn btn-primary btn-sm float-end">{{ __(' Add Employee') }}</button></a> 
                         </div>
                      </div>
@@ -63,13 +63,15 @@
                           
                             <th>{{ __(' Name') }}</th>
                             <th>{{ __(' Designation') }}</th>
-                            <th>{{ __('Emergency Contact No') }}</th>
+                            <th>{{ __(' Contact No') }}</th>
                             <th class="text-center">{{ __('Added') }}</th>
+                            <th class="text-center">{{ __('Picture') }}</th>
                             <th class="text-center">{{ __('Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody id="myTable">
                         @php $sl = 1; @endphp
+                      
                         @foreach($employees as $employee)
                         <tr>
                             <td>{{ $sl++ }}</td>
@@ -77,8 +79,9 @@
                             
                             <td>{{ $employee['name'] }}</td>
                             <td>{{ $employee['designation'] }}</td>
-                            <td>{{ $employee['emergency_contact'] }}</td>
+                        
                             <td class="text-center">{{ date("d F Y", strtotime($employee['created_at'])) }}</td>
+                            <td class="text-center"><img src="profile_picture/{{$employee['picture'] }}" width="70px" height="30px"/></td>   
                            
                             <td class="text-center">
                                <a href="{{ route('employee.edit', $employee['id']) }}"><i class="icon fa fa-edit"></i> {{ __('Edit') }}</a>

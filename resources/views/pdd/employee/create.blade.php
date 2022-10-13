@@ -263,7 +263,14 @@
                                                         </span>
                                                         @endif
                                                     </div>
-                                                   
+                                                    <label for="picture">{{ __('Picture  ') }}<span class="text-danger">*</span></label>
+													<div class="form-group{{ $errors->has('picture') ? ' has-error' : '' }} has-feedback">
+														 <input type="file" id="picture" name="picture" class="form-control">
+														@if ($errors->has('picture'))
+														<span class="help-block">
+															<strong>{{ $errors->first('picture') }}</strong>
+														</span>
+														@endif
                                                    </div>
                                                   
                                                 </div>

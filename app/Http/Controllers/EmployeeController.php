@@ -23,7 +23,7 @@ class EmployeeController extends Controller {
 			->join('designations', 'users.designation_id', '=', 'designations.id')
 			
 		
-			->select('employee_id', 'users.id', 'users.name', 'users.emergency_contact', 'users.created_at',  'designations.designation')
+			->select('employee_id', 'users.id', 'users.name', 'users.emergency_contact', 'users.created_at',  'designations.designation','users.picture')
 			->orderBy('users.employee_id', 'ASC')
 			->get()
 			->toArray();
@@ -233,29 +233,49 @@ class EmployeeController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, User $employee)
+	public function update(Request $request, $id)
     {
         
     //    $this->Services->update($employee, $request->validated());
     // $employee->update($request->all());
+	// $data=[];
+	$data = User::find($id);
+	// $data->created_by = auth()->user()->id;
+	// $data->employee_id  = $sl;
+	$data->name =$request->name;
+	$data->email =$request->email;
+	// $data->password  = Hash::make('password');
+	$data->present_address =$request->present_address;
+	$data->id_name =$request->id_name;
+	$data->id_number =$request->id_number;
+	$data->pf_number =$request->pf_number;
+	$data->emergency_contact =$request->emergency_contact;
+	$data->gender =$request->gender;
+	$data->date_of_birth =$request->date_of_birth;
+	$data->marital_status =$request->marital_status;
+	$data->picture =$request->picture; 
+	$data->designation_id =$request->designation_id;
+	$data->department_id =$request->input('department_id');
+	$data->academic_qualification =$request->academic_qualification;
+	$data->joining_date =$request->joining_date;
 
-    $input = $request->all();
-  
-    if ($picture = $request->file('picture')) {
-        $destinationPath = 'upload/employee/';
-        @unlink(public_path('upload/employee/' .$input->picture));
-        $profilePicture = date('YmdHis') . "." . $picture->getClientOriginalExtension();
-        $picture->move($destinationPath, $profilePicture);
-        $input['picture'] = "$profilePicture";
-    }else{
-        unset($input['picture']);
-    }
-      
-    $employee->update($input);
+	
+	   
+	 if ($request->file('picture')) {
+		$file = $request->file('picture');
+		// $destinationPath = 'profile_picture/';
+		$filename = date('YmdHis') . "." .  $file->getClientOriginalExtension();
+		$file->move('profile_picture/',$filename);
+		 $data['picture'] = "$filename";
+	 }
+ 
+	 $results = $data->save();
 
-
-        return redirect()->route('employee.index')
-                        ->withFlashSuccess('employees updated successfully');
+		
+		if (!empty($results)) {
+			return redirect()->route('employee.index')->with('message', 'Updated successfully.');
+		}
+		return redirect()->route('employee.index')->with('exception', 'Operation failed !');
     }
 
 	/**
