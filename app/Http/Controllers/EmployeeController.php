@@ -236,15 +236,11 @@ class EmployeeController extends Controller {
 	public function update(Request $request, $id)
     {
         
-    //    $this->Services->update($employee, $request->validated());
-    // $employee->update($request->all());
-	// $data=[];
+    
 	$data = User::find($id);
-	// $data->created_by = auth()->user()->id;
-	// $data->employee_id  = $sl;
+
 	$data->name =$request->name;
 	$data->email =$request->email;
-	// $data->password  = Hash::make('password');
 	$data->present_address =$request->present_address;
 	$data->id_name =$request->id_name;
 	$data->id_number =$request->id_number;
