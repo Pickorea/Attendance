@@ -29,9 +29,16 @@
                 <div class="row">
                 <div class="col-md-4">
                         <div class="profile-work">
-                        <div class="profile-img">
+                      
                             
                             <img src="{{url('/profile_picture/' . $employee->picture)}}" width="360px" height="290px"/>
+                            <div class="d-flex justify-content-center mb-2">
+              <!-- <button type="button" class="btn btn-primary">Edit Profile</button> -->
+              <a class="profile-edit-btn btn btn-primary"  href="{{route('profile.edit',$employee->id)}}" >Edit Profile</a>
+              <a target="_blank" class="profile-edit-btn btn btn-primary"  href="{{route('profile.profile.pdf',$employee->id)}}" >PDF</a>
+
+             
+           
                               
                             </div>
                         </div>
@@ -41,13 +48,13 @@
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label><th>Gender</th></label>
+                                                <label>Gender</label>
                                             </div>
                                             <div class="col-md-6">
                                                 <p>{{$employee['gender'] == 1 ? 'Male' : 'Female'}}</p>
                                             </div>
                                         </div>
-                                        <hr>
+                                     
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>DoB</label>
@@ -56,7 +63,7 @@
                                                 <p>{{$employee['date_of_birth']}}</p>
                                             </div>
                                         </div>
-                                        <hr>
+                                
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Qualification</label>
@@ -65,7 +72,7 @@
                                                 <p>{{$employee['academic_qualification']}}</p>
                                             </div>
                                         </div>
-                                        <hr>
+                                  
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Current Address</label>
@@ -74,8 +81,7 @@
                                                 <p>{{$employee['present_address']}}</p>
                                             </div>
                                         </div>
-                                       
-                                        <hr>
+                                 
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Date of Joining</label>
@@ -84,7 +90,7 @@
                                                 <p>{{$employee['joining_date']}}</p>
                                             </div>
                                         </div>
-                                        <hr>
+                                 
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>PF Number</label>
@@ -93,7 +99,25 @@
                                                 <p>{{$employee['pf_number']}}</p>
                                             </div>
                                         </div>
-                                        <hr>
+                                      
+
+                                        <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Retirement Date</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{$result}}</p>
+                                        </div>
+                                        </div>
+
+                                        <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">No. of Years</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{$datejoin}}</p>
+                                        </div>
+                                        </div>
                                        
                             </div>
                            

@@ -9,6 +9,7 @@ use App\Models\Department;
 use DB;
 use Illuminate\Http\Request;
 use PDF;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 class EmployeeController extends Controller {
 
@@ -159,7 +160,25 @@ class EmployeeController extends Controller {
 	public function show($id) {
 	
 		$data['employee'] = User::find($id);
-		return view('pdd.employee.show', $data);
+		$dateOfBirth = User::where('id',$id)->select('date_of_birth')->value('date_of_birth');
+        // date when he'll turn 50
+        $dateToFifty = date('Y-m-d', strtotime($dateOfBirth . '+60 Years'));
+        // current date
+        $currentDate = date('Y-m-d');
+        $result = $dateToFifty;
+        // checks if already fifty
+        if($currentDate <= $dateToFifty) {
+            $result = $dateToFifty;
+        }
+
+        $joiningDate = User::where('id',$id)->select('joining_date')->value('joining_date');
+        $joinDate = Carbon::parse($joiningDate);
+        $todate = Carbon::parse(date('Y-m-d'));
+        // dd($todate);
+        $datejoin = $joinDate->diffInYears($todate); //total days between two dates
+		return view('pdd.employee.show', $data)
+	        ->with('result',$result)
+        ->with('datejoin',$datejoin);
 	}
 
 	/**
